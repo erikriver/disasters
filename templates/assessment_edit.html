@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{#id}}Editar{{/id}}{{^id}}Agregar{{/id}} {{type_label}}</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{#id}}Editar{{/id}}{{^id}}Agregar{{/id}} {{type_label}}</h1>
+      </div>
+      <div role="main" class="ui-content">
+        {{^type_id}}
+        <p>Selecciona un tipo</p>
+        {{/type_id}}
+        <form action="{{svc}}/assessments/{{id}}" method="post" data-ajax="false"
+            data-wq-json="true"
+            {{#outbox_id}}
+              data-wq-outbox-id="{{outbox_id}}"
+              data-wq-outbox-preserve="{{file_fields}}"
+            {{/outbox_id}}>
+          {{>csrf}}
+          {{#id}}
+          <input type=hidden name="_method" value="PUT">
+          {{/id}}
+          <ul data-role="listview">
+            <input type="hidden" name="type_id" value="{{type_id}}">
+            {{#site_id}}
+              <li class="ui-field-contain">
+                <label for="site_id_label">Localidad</label>
+                <input id="site_id_label" value="{{#site}}{{label}}{{/site}}" disabled>
+                <input type="hidden" name="site_id" value="{{site_id}}">
+                <p class="error assessment-site_id-errors"></p>
+              </li>
+            {{/site_id}}
+            {{#parentassessment_id}}
+              <li class="ui-field-contain">
+                <label for="parentassessment_id_label">Encuesta relacionada</label>
+                <input id="parentassessment_id_label" value="{{#parentassessment}}{{#outbox}}* {{/outbox}}{{label}}{{/parentassessment}}" disabled>
+                <input type="hidden" name="parentassessment_id" value="{{parentassessment_id}}">
+              </li>
+            {{/parentassessment_id}}
+            {{^site_id}}
+            
+            {{#site_data}}
+            <li class="ui-field-contain">
+              <label for="site_data_label">Localidad</label>
+              <input id="site_data_label" value="{{site_data_label}}" disabled>
+              <input type="hidden" name="site_data" value="{{site_data}}">
+            </li>
+            {{/site_data}}
+            {{^site_data}}
+            <li class="ui-field-contain">
+              <label for="site_id">Site</label>
+              <select id="site_id" name="site_id" required>
+                <option value="">Seleccionar una localidad...</option>
+                {{#site_list}}
+                  {{>option}}
+                {{/site_list}}
+              </select>
+              <p class="error assessment-site_id-errors"></p>
+            </li>
+            {{/site_data}}
+            {{/site_id}}
+            
+            {{#type}}{{#script}}
+            <script>
+            {{{script}}}
+            </script>
+            {{/script}}{{/type}}
+            
+            {{#assessment_html}}edit{{/assessment_html}}
+              <div class="ui-grid-a">
+                <div class="ui-block-a">
+                  <a href="{{rt}}/assessmenttypes/{{id}}" data-role="button" data-icon="back" data-direction="reverse">
+                    Atrás
+                  </a>
+                </div>
+                <div class="ui-block-b">
+                  <button type="submit" data-icon="check" data-theme="b">
+                    Enviar
+                  </button>
+                </div>
+              </div>
+              
+              <p class="error assessment-errors"></p>
+            </li>
+            </ul>
+          
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+

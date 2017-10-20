@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{label}}</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{label}}</h1>
+        {{#outbox_id}}
+        <a href="{{rt}}/outbox/{{outbox_id}}/edit" data-icon="edit" data-transition="flip">
+          Editar
+        </a>
+        {{/outbox_id}}
+        {{^outbox_id}}
+        {{#is_authenticated}}{{#user.is_staff}}
+        <a href="{{rt}}/assessments/{{id}}/edit" data-icon="edit" data-transition="flip">
+          Editar
+        </a>
+        {{/user.is_staff}}{{/is_authenticated}}
+        {{/outbox_id}}
+      </div>
+      <div role="main" class="ui-content">
+        <h1>{{label}}</h1>
+        <table>
+          <tr><th>Type</th><td><a href="{{rt}}/assessmenttypes/{{type_id}}">{{type_label}}</a></td></tr>
+          <tr><th>Site</th><td><a href="{{rt}}/sites/{{site_id}}">{{site_label}}</a></td></tr>
+          <tr><th>Observer</th><td>{{observer_label}}</td></tr>
+          <tr><th>Posted</th><td>{{entered_label}}</td></tr>
+          {{#assessment_html}}detail{{/assessment_html}}
+               
+        </table>
+        {{#parentassessment}}
+          <p>Encuesta padre:<br>
+          &nbsp;&nbsp;<a href="{{rt}}{{#outbox}}/outbox/{{outbox_id}}{{/outbox}}{{^outbox}}/assessments/{{id}}{{/outbox}}">{{label}}</a></p>
+        <p><a href="{{rt}}/assessmenttypes/?site_id={{site_id}}&parentassessment_id={{#parentassessment_id}}{{parentassessment_id}}{{/parentassessment_id}}{{^parentassessment_id}}outbox-{{outbox_id}}{{/parentassessment_id}}" data-icon="plus">Agregar encuesta adicional</a></p>
+        {{/parentassessment}}
+        
+        <p><a href="{{rt}}/assessmenttypes/?site_id={{site_id}}&parentassessment_id={{#id}}{{id}}{{/id}}{{^id}}outbox-{{outbox_id}}{{/id}}" data-icon="plus">Agregar encuesta hija</a></p>
+        
+        <h3>Encuestas hijas:</h3>
+        <ul data-role="listview" data-filter="false" data-inset="true">
+      {{#childassessment}}
+        <li>
+          <a href="{{rt}}/assessments/{{id}}">{{label}}</a>
+        </li>
+        {{/childassessment}}
+        {{^childassessment}}
+    <li>No hay encuestas hijas</li>
+        {{/childassessment}}
+        </ul>
+        {{^outbox_id}}
+        <div class="map detail-map" id="assessment-{{id}}-map"></div>
+        {{/outbox_id}}
+        
+      </div>
+    </div>
+  </body>
+</html>
+

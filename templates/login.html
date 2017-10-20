@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Autenticar</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page">
+      <div data-role="header">
+        {{>home}}
+        <h1>Autenticar</h1>
+      </div>
+      <div role="main" class="ui-content">
+        {{#is_authenticated}}
+        <p>Autenticado como {{user.username}}</p>
+        <a href="{{rt}}/logout" data-role="button" data-icon="delete">
+          Log Out
+        </a>
+        <ul data-role="listview" data-inset="true" style="clear:both;">
+          <li data-role="list-divider">Cuentas conectadas</li>
+          {{#user.social_auth.accounts}}
+          <li>
+            {{provider_label}}: {{label}}
+          </li>
+          {{/user.social_auth.accounts}}
+          <li data-role="list-divider">Conectar otra cuenta</li>
+        {{/is_authenticated}}
+        {{^is_authenticated}}
+        <form action="{{svc}}/login" method="post" data-ajax="false"
+            data-wq-json="true" data-wq-background-sync="false">
+          {{>csrf}}
+          <ul data-role="listview">
+            <li>
+              <label for="username">Usuario</label>
+              <input name="username" id="username">
+            </li>
+            <li>
+              <label for="password">Contraseña</label>
+              <input name="password" id="password" type="password">
+            </li>
+            <li>
+              <div class="ui-grid-a">
+                <div class="ui-block-a">
+                  <a href="{{rt}}/" data-role="button" data-icon="back" data-direction="reverse">
+                    Back
+                  </a>
+                </div>
+                <div class="ui-block-b">
+                  <button type="submit" data-icon="check" data-theme="b">
+                    Enviar
+                  </a>
+                </div>
+              </div>
+              <p class="error login-errors"></p>
+            </li>
+          </ul>
+        </form>
+            <ul data-role="listview" data-inset="true">
+
+      {{/is_authenticated}}
+              <li>
+                <a href="/login/google-oauth2" rel="external">Entrar con Google</a>
+              </li>
+              <li>
+                <a href="/login/facebook" rel="external">Entrar con Facebook</a>
+              </li>
+              <li>
+                 <a href="/login/twitter" rel="external">Entrar con Twitter</a>
+
+            </ul>
+
+      </div>
+    </div>
+  </body>
+</html>

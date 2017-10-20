@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{#id}}Editar{{/id}}{{^id}}Agregar{{/id}} Tipo de Encuesta</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{#id}}Editar{{/id}}{{^id}}Agregar{{/id}} Tipo de Encuesta</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <form action="{{svc}}/assessmenttypes/{{id}}" method="post" data-ajax="false"
+            data-wq-json="true" data-wq-background-sync="false">
+          {{>csrf}}
+          {{#id}}
+          <input type=hidden name="_method" value="PUT">
+          {{/id}}
+          <ul data-role="listview">
+            <li data-role="list-divider">Información General</li>
+            <li class="ui-field-contain">
+              <label for="name">Nombre</label>
+              <input name="name" id="name" value="{{name}}">
+              <p class="error assessmenttype-name-errors"></p>
+            </li>
+            <li class="ui-field-contain">
+              <label for="icon">Icono</label>
+              <input name="icon" id="icon" type="file">
+              <p class="error assessmenttype-icon-errors"></p>
+              {{#icon}}
+              <div class="ui-content">
+                <img src="{{svc}}/media/{{icon}}">
+              </div>
+              {{/icon}}
+            </li>
+            <li class="ui-field-contain">
+              <label for="description">Descripción</label>
+              <textarea name="description" id="description">{{description}}</textarea>
+              <p class="error assessmenttype-description-errors"></p>
+            </li>
+            <li data-role="list-divider">Campos y Layout</li>
+            <li class="ui-field-contain">
+              <label for="xlsform">XLSForm</label>
+              <input name="xlsform" id="xlsform" type="file" value="{{xlsform}}">
+              <p class="error assessmenttype-xlsform-errors"></p>
+              {{#xlsform}}
+              <div class="ui-content">
+                <a href="{{svc}}/media/{{xlsform}}" target="_blank">{{xlsform}}</a>
+              </div>
+              {{/xlsform}}
+            </li>
+            <li>
+              <label for="edit_html">HTML Form</label>
+              <p>(Dejar en blanco, XLSForm lo autogenera)</p>
+              <code>
+              &lt;form&gt;<br>
+              &lt;ul data-role='listview'&gt;
+              </code>
+              <textarea name="edit_html" id="edit_html">{{edit_html}}</textarea>
+              <code>
+              &lt;/ul&gt;<br>
+              &lt;/form&gt;
+              </code>
+              <p class="error assessmenttype-edit_html-errors"></p>
+            </li>
+            <li>
+              <label for="detail_html">HTML Detail View</label>
+              <p>(Dejar en blanco, XLSForm lo autogenera)</p>
+              <code>
+              &lt;table&gt;
+              </code>
+              <textarea name="detail_html" id="detail_html">{{detail_html}}</textarea>
+              <code>
+              &lt;/table&gt;
+              </code>
+              <p class="error assessmenttype-detail_html-errors"></p>
+            </li>
+            <li>
+              <div class="ui-grid-a">
+                <div class="ui-block-a">
+                  <a href="{{rt}}/assessmenttypes/{{id}}" data-role="button" data-icon="back" data-direction="reverse">
+                    Atrás
+                  </a>
+                </div>
+                <div class="ui-block-b">
+                  <button type="submit" data-icon="check" data-theme="b">
+                    Enviar
+                  </button>
+                </div>
+              </div>
+              <p class="error assessmenttype-errors"></p>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+

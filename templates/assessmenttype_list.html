@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Assessment Types</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page">
+      <div data-role="header">
+        {{>home}}
+        <h1>Tipo de Encuestas</h1>
+      </div>
+      <div role="main" class="ui-content">
+      <p>Agregar información</p>
+        <ul data-role="listview" data-filter="true" data-inset="true">
+          {{#list}}
+          <li>
+            <a href="{{rt}}/assessments/new?type_id={{id}}&site_id={{router_info.params.site_id}}&parentassessment_id={{router_info.params.parentassessment_id}}">
+              {{#icon}}
+              <img src="{{svc}}/media/{{icon}}">
+              {{/icon}}
+              {{^icon}}
+              <img src="{{rt}}/images/empty.png">
+              {{/icon}}
+              <h3>{{label}}</h3>
+              <p>{{description}}</p>
+            </a>
+            <a href="{{rt}}/assessmenttypes/{{id}}" data-icon="info">
+              Acerca de...
+            </a>
+          </li>
+          {{/list}}
+          {{^list}}
+          <li>No se encontraron tipos de encuesta</li>
+          {{/list}}
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

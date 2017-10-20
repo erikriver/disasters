@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Localidades</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page">
+      <div data-role="header">
+        {{>home}}
+        <h1>Localidades</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <div data-role="collapsible">
+          <h3>Buscar localidad...</h3>
+          <ul data-role="listview" data-filter="true" data-inset="true">
+            {{#list}}
+            <li>
+                <a href="{{rt}}/sites/{{id}}">
+                <h3>{{label}}</h3>
+                </a>
+                <a href="{{rt}}/assessmenttypes/?site_id={{id}}" data-icon="plus">
+                Agregar encuesta
+                </a>
+            </li>
+            {{/list}}
+            {{^list}}
+            <li>Localidad no encontrada</li>
+            {{/list}}
+          </ul>
+        </div>
+        <div class="map list-map" id="site-map"></div>
+      {{>paginator}}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{parent_label}} Encuestas</title>
+    {{>head}}
+  </head>
+  <body>
+    <div data-role="page" class="ui-page" data-wq-sync-refresh="true">
+      <div data-role="header">
+        {{>home}}
+        <h1>{{parent_label}} Encuesta</h1>
+      </div>
+      <div role="main" class="ui-content">
+        {{^parent_label}}
+        {{#unsynced}}
+        <ul data-role="listview" data-inset="true">
+          <li data-role="list-divider">Pendientes</li>
+          {{>outbox}}
+        </ul>
+        {{/unsynced}}
+        {{/parent_label}}
+        <div class="ui-grid-a">
+        <div class="ui-block-a">
+        <ul data-role="listview" data-filter="true" data-inset="true">
+          <li data-role="list-divider">
+            {{^parent_label}}{{#unsynced}}Sincronizado{{/unsynced}}{{/parent_label}}
+            Encuestas enviadas
+          </li>
+          {{#list}}
+          <li>
+            <a href="{{rt}}/assessments/{{id}}">
+              {{#files}}{{^@index}}
+              <img src="/media/160/{{file}}" alt="{{label}}">
+              {{/@index}}{{/files}}
+              <h3>{{label}}</h3>
+            </a>
+          </li>
+          {{/list}}
+          {{^list}}
+          <li>No hay resultados</li>
+          {{/list}}
+          {{#parent_is_assessmenttype}}
+          <li data-icon="plus" data-theme="b">
+            <a href="{{rt}}/assessments/new?type_id={{parent_id}}">
+              Agregar encuestas
+            </a>
+          </li>
+          {{/parent_is_assessmenttype}}
+        </ul>
+        </div>
+        <div class="ui-block-b">
+          <div class="map list-map" id="{{#parent_id}}{{parent_page}}-{{parent_id}}-{{/parent_id}}assessment-map">
+          </div>
+        </div>
+        </div>
+           {{>paginator}}
+      </div>
+    </div>
+  </body>
+</html>
+
