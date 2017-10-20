@@ -67,12 +67,12 @@ class Assessment(models.Model):
     site = models.ForeignKey(Site)
     values = JSONField(null=True, blank=True)
 
-    wq_label_template = "Assessment{{#date}} on {{{date}}}{{/date}}"
+    wq_label_template = "Encuesta{{#date}} el {{{date}}}{{/date}}"
 
     def __str__(self):
         if self.type_id is None:
-            return "New Assessment"
-        return "%s posted %s" % (
+            return "Nueva Encuesta"
+        return "%s - %s" % (
             self.type, self.entered.date()
         )
 
