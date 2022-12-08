@@ -2,7 +2,7 @@ Django==1.11.5
 Markdown==2.6.9
 Pillow==4.2.1
 PyYAML==3.12
-certifi==2017.7.27.1
+certifi==2022.12.7
 chardet==3.0.4
 click==5.1
 compass-stylesheets==0.12.6
